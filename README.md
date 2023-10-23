@@ -1,1 +1,3 @@
-# Project1
+# FirstProject
+
+My project on Yandex Lyceum
