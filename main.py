@@ -1,5 +1,8 @@
+import io
 import sys
-import PyQt5
+
+from PyQt5 import uic
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QMessageBox, QInputDialog
 
 template = """
 <?xml version="1.0" encoding="UTF-8"?>
@@ -21,17 +24,20 @@ template = """
    <string notr="true">background-color: white;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
+   <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>10</y>
+      <x>10</x>
+      <y>0</y>
       <width>291</width>
-      <height>101</height>
+      <height>231</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">font-size: 20px;
+    <layout class="QVBoxLayout" name="verticalLayout_12">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="styleSheet">
+        <string notr="true">font-size: 20px;
 background-color: white;
 border-radius: 20px;
 color: black;
@@ -40,137 +46,98 @@ line-height: 26px;
 background: none;
 font-weight: bold;
 </string>
-    </property>
-    <property name="text">
-     <string>PASSWORD GENERATOR</string>
-    </property>
-    <property name="margin">
-     <number>10</number>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>80</y>
-      <width>151</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font-size: 15px;
+       </property>
+       <property name="text">
+        <string>PASSWORD GENERATOR</string>
+       </property>
+       <property name="margin">
+        <number>10</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="styleSheet">
+        <string notr="true">font-size: 15px;
 background-color: white;
 border-radius: 5px;
 color: black;
 
 </string>
-    </property>
-    <property name="text">
-     <string>Количество символов</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>140</y>
-      <width>201</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font-size: 12px;
-font-weight: bold;</string>
-    </property>
-    <property name="text">
-     <string>Содержание Латиницы (a-z)</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_2">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>170</y>
-      <width>211</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font-size: 12px;
-font-weight: bold;</string>
-    </property>
-    <property name="text">
-     <string>Содержание Кириллицы (а-я)</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_3">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>200</y>
-      <width>201</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font-size: 12px;
-font-weight: bold;</string>
-    </property>
-    <property name="text">
-     <string>Содержание Cпец-символов</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>110</y>
-      <width>151</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: none;
+       </property>
+       <property name="text">
+        <string>Количество символов</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit">
+       <property name="styleSheet">
+        <string notr="true">background-color: none;
 border-color: 14px;
 border: 2px solid black;</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>260</y>
-      <width>241</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font-size: 15px;
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox">
+       <property name="styleSheet">
+        <string notr="true">font-size: 12px;
+font-weight: bold;</string>
+       </property>
+       <property name="text">
+        <string>Только Латиница (a-z)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox_2">
+       <property name="styleSheet">
+        <string notr="true">font-size: 12px;
+font-weight: bold;</string>
+       </property>
+       <property name="text">
+        <string>Только Кириллица (а-я)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox_3">
+       <property name="styleSheet">
+        <string notr="true">font-size: 12px;
+font-weight: bold;</string>
+       </property>
+       <property name="text">
+        <string>Содержание Cпец-символов</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="checkBox_4">
+       <property name="styleSheet">
+        <string notr="true">font-size: 12px;
+font-weight: bold;</string>
+       </property>
+       <property name="text">
+        <string>Заглавные буквы</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="styleSheet">
+        <string notr="true">font-size: 15px;
 border-radius: 5px;
 border: 3px solid black;
 font-weight: bold;
 background-color: white;</string>
-    </property>
-    <property name="text">
-     <string>Сгенерировать пароль</string>
-    </property>
-   </widget>
-   <widget class="QCheckBox" name="checkBox_4">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>230</y>
-      <width>191</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font-size: 12px;
-font-weight: bold;</string>
-    </property>
-    <property name="text">
-     <string>Заглавные буквы</string>
-    </property>
+       </property>
+       <property name="text">
+        <string>Сгенерировать пароль</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -189,3 +156,17 @@ font-weight: bold;</string>
  <connections/>
 </ui>
 """
+
+
+class PasswordGenerator(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        f = io.StringIO(template)
+        uic.loadUi(f, self)
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = PasswordGenerator()
+    ex.show()
+    sys.exit(app.exec_())
