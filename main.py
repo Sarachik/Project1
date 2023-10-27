@@ -1,11 +1,12 @@
-import io
+
 import sys
+import io
 
 from PyQt5 import uic
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QMessageBox, QInputDialog
+from PyQt5.QtWidgets import QApplication, QMessageBox
+from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
 
-template = """
-<?xml version="1.0" encoding="UTF-8"?>
+template = '''<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
@@ -24,13 +25,16 @@ template = """
    <string notr="true">background-color: white;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>291</width>
-      <height>231</height>
+      <width>371</width>
+      <height>321</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -126,14 +130,53 @@ font-weight: bold;</string>
      <item>
       <widget class="QPushButton" name="pushButton">
        <property name="styleSheet">
-        <string notr="true">font-size: 15px;
+        <string notr="true">QPushButton {
+font-size: 15px;
 border-radius: 5px;
 border: 3px solid black;
 font-weight: bold;
-background-color: white;</string>
+background-color: white;
+}
+
+QPushButton:hover {
+background-color: rgba(red, 0,8);
+color: red;
+}</string>
        </property>
        <property name="text">
         <string>Сгенерировать пароль</string>
+       </property>
+       <property name="checkable">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="styleSheet">
+        <string notr="true">font-size: 20px;
+background-color: white;
+border-radius: 20px;
+color: black;
+font-family: &quot;Georgia&quot;, serif;
+line-height: 26px;
+background: none;
+font-weight: bold;</string>
+       </property>
+       <property name="text">
+        <string>Сгенерированный пароль</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lineEdit_2">
+       <property name="styleSheet">
+        <string notr="true">background-color: none;
+border-color: 14px;
+border: 2px solid black;</string>
+       </property>
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>
@@ -155,18 +198,22 @@ background-color: white;</string>
  <resources/>
  <connections/>
 </ui>
-"""
+'''
 
 
-class PasswordGenerator(QMainWindow):
+class MyWidget(QMainWindow):
     def __init__(self):
         super().__init__()
         f = io.StringIO(template)
         uic.loadUi(f, self)
 
+    def initUi(self):
+        pass
+
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = PasswordGenerator()
+    ex = MyWidget()
     ex.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
