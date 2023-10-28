@@ -1,4 +1,4 @@
-
+import random
 import sys
 import io
 
@@ -31,10 +31,10 @@ template = '''<?xml version="1.0" encoding="UTF-8"?>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>30</x>
       <y>0</y>
-      <width>371</width>
-      <height>321</height>
+      <width>501</width>
+      <height>391</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -75,55 +75,81 @@ color: black;
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit">
-       <property name="styleSheet">
-        <string notr="true">background-color: none;
-border-color: 14px;
-border: 2px solid black;</string>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox">
+      <widget class="QLineEdit" name="lineEdit">
        <property name="styleSheet">
-        <string notr="true">font-size: 12px;
-font-weight: bold;</string>
+        <string notr="true">font-size: 14px;
+background-color: none;
+border-color: 14px;
+border: 2px solid black;</string>
        </property>
+       <property name="maxLength">
+        <number>2</number>
+       </property>
+       <property name="placeholderText">
+        <string>Введите цифры</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton">
        <property name="text">
         <string>Только Латиница (a-z)</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_2">
-       <property name="styleSheet">
-        <string notr="true">font-size: 12px;
-font-weight: bold;</string>
-       </property>
+      <widget class="QRadioButton" name="radioButton_2">
        <property name="text">
         <string>Только Кириллица (а-я)</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_3">
-       <property name="styleSheet">
-        <string notr="true">font-size: 12px;
-font-weight: bold;</string>
-       </property>
+      <widget class="QRadioButton" name="radioButton_3">
        <property name="text">
-        <string>Содержание Cпец-символов</string>
+        <string>Латиница + спец-символы (а-я + !&quot;%)</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_4">
-       <property name="styleSheet">
-        <string notr="true">font-size: 12px;
-font-weight: bold;</string>
-       </property>
+      <widget class="QRadioButton" name="radioButton_4">
        <property name="text">
-        <string>Заглавные буквы</string>
+        <string>Кириллица + спец символы (а-я + !&quot;%)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton_5">
+       <property name="text">
+        <string>Латиница + Заглавные буквы</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton_6">
+       <property name="text">
+        <string>Кириллица + Заглавные буквы</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton_7">
+       <property name="text">
+        <string>Латиница + Заглавыне буквы + спец-символы</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton_8">
+       <property name="text">
+        <string>Кириллица + Заглавные буквы + спец-символы</string>
        </property>
       </widget>
      </item>
@@ -171,12 +197,19 @@ font-weight: bold;</string>
      <item>
       <widget class="QLineEdit" name="lineEdit_2">
        <property name="styleSheet">
-        <string notr="true">background-color: none;
+        <string notr="true">font-size: 14px;
+background-color: none;
 border-color: 14px;
 border: 2px solid black;</string>
        </property>
        <property name="text">
         <string/>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+       <property name="placeholderText">
+        <string>Здесь будет сгенерированный пароль</string>
        </property>
       </widget>
      </item>
@@ -206,10 +239,63 @@ class MyWidget(QMainWindow):
         super().__init__()
         f = io.StringIO(template)
         uic.loadUi(f, self)
+        self.pushButton.clicked.connect(self.generate)
 
-    def initUi(self):
-        pass
+    def generate(self):
+        try:
+            number = int(self.lineEdit.text())
+            password = ''
+            self.label_4.setText('')
+        except Exception:
+            self.label_4.setText('Можно вводить только цифры')
 
+        if self.radioButton.isChecked():
+            lower_latinAlphabet = list('abcdefghijklmnopqrstuvwxyz')
+            for _ in range(number):
+                password += random.choice(lower_latinAlphabet)
+                self.lineEdit_2.setText(str(password))
+
+        if self.radioButton_2.isChecked():
+            lower_rusAlphabet = list('абвгдеёжзийклмнопрстуфхцчшщъыьэюя')
+            for _ in range(number):
+                password += random.choice(lower_rusAlphabet)
+                self.lineEdit_2.setText(str(password))
+
+        if self.radioButton_3.isChecked():
+            lower_latinAlphabet_and_specialSymbols = list('abcdefghijklmnopqrstuvwxyz!"№;%:?*()_-+=')
+            for _ in range(number):
+                password += random.choice(lower_latinAlphabet_and_specialSymbols)
+                self.lineEdit_2.setText(str(password))
+
+        if self.radioButton_4.isChecked():
+            lower_rusAlphabet_and_specialSymbols = list('абвгдеёжзийклмнопрстуфхцчшщъыьэюя!"№;%:?*()_-+=')
+            for _ in range(number):
+                password += random.choice(lower_rusAlphabet_and_specialSymbols)
+                self.lineEdit_2.setText(str(password))
+
+        if self.radioButton_5.isChecked():
+            upper_latinAlphabet = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+            for _ in range(number):
+                password += random.choice(upper_latinAlphabet)
+                self.lineEdit_2.setText(str(password))
+
+        if self.radioButton_6.isChecked():
+            upper_rusAlphabet = list('АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ')
+            for _ in range(number):
+                password += random.choice(upper_rusAlphabet)
+                self.lineEdit_2.setText(str(password))
+
+        if self.radioButton_7.isChecked():
+            upper_latinAlphabet_and_specialSymbols = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ!"№;%:?*()_-+=')
+            for _ in range(number):
+                password += random.choice(upper_latinAlphabet_and_specialSymbols)
+                self.lineEdit_2.setText(str(password))
+
+        if self.radioButton_8.isChecked():
+            upper_rusAlphabet_and_specialSymbols = list('АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ!"№;%:?*()_-+=')
+            for _ in range(number):
+                password += random.choice(upper_rusAlphabet_and_specialSymbols)
+                self.lineEdit_2.setText(str(password))
 
 
 if __name__ == '__main__':
