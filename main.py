@@ -37,51 +37,59 @@ class MyWidget(QMainWindow):
             self.label_4.setText('')
 
             if self.radioButton.isChecked():
-                lower_latinAlphabet = list('abcdefghijklmnopqrstuvwxyz')
+                lower_latinAlphabet = list('abcdefghijklmnopqrstuvwxyz'
+                                           '123456789')
                 for _ in range(number):
                     password += random.choice(lower_latinAlphabet)
                     self.lineEdit_2.setText(str(password))
 
             if self.radioButton_2.isChecked():
-                lower_rusAlphabet = list('абвгдеёжзийклмнопрстуфхцчшщъыьэюя')
+                lower_rusAlphabet = list('абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
+                                         '123456789')
                 for _ in range(number):
                     password += random.choice(lower_rusAlphabet)
                     self.lineEdit_2.setText(str(password))
 
             if self.radioButton_3.isChecked():
-                lower_latinAlphabet_and_specialSymbols = list('abcdefghijklmnopqrstuvwxyz!"№;%:?*_-')
+                lower_latinAlphabet_and_specialSymbols = list('abcdefghijklmnopqrstuvwxyz!*_'
+                                                              '123456789')
                 for _ in range(number):
                     password += random.choice(lower_latinAlphabet_and_specialSymbols)
                     self.lineEdit_2.setText(str(password))
 
             if self.radioButton_4.isChecked():
-                lower_rusAlphabet_and_specialSymbols = list('абвгдеёжзийклмнопрстуфхцчшщъыьэюя!"№;%:?*_-')
+                lower_rusAlphabet_and_specialSymbols = list('абвгдеёжзийклмнопрстуфхцчшщъыьэюя!*_'
+                                                            '123456789')
                 for _ in range(number):
                     password += random.choice(lower_rusAlphabet_and_specialSymbols)
                     self.lineEdit_2.setText(str(password))
 
             if self.radioButton_5.isChecked():
-                upper_latinAlphabet = list('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+                upper_latinAlphabet = list('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                                           '123456789')
                 for _ in range(number):
                     password += random.choice(upper_latinAlphabet)
                     self.lineEdit_2.setText(str(password))
 
             if self.radioButton_6.isChecked():
-                upper_rusAlphabet = list('абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ')
+                upper_rusAlphabet = list('абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
+                                         '123456789')
                 for _ in range(number):
                     password += random.choice(upper_rusAlphabet)
                     self.lineEdit_2.setText(str(password))
 
             if self.radioButton_7.isChecked():
                 upper_latinAlphabet_and_specialSymbols = list('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUV'
-                                                              'WXYZABCDEFGHIJKLMNOPQRSTUVWXYZ!"№;%:?*_-')
+                                                              'WXYZABCDEFGHIJKLMNOPQRSTUVWXYZ!*_'
+                                                              '123456789')
                 for _ in range(number):
                     password += random.choice(upper_latinAlphabet_and_specialSymbols)
                     self.lineEdit_2.setText(str(password))
 
             if self.radioButton_8.isChecked():
                 upper_rusAlphabet_and_specialSymbols = list('абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕ'
-                                                            'ЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ!"№;%:?*_-')
+                                                            'ЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ!*_'
+                                                            '123456789')
                 for _ in range(number):
                     password += random.choice(upper_rusAlphabet_and_specialSymbols)
                     self.lineEdit_2.setText(str(password))
